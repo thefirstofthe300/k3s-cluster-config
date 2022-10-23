@@ -1,0 +1,14 @@
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: nfs
+provisioner: nfs.csi.k8s.io
+parameters:
+  server: 192.168.1.100
+  share: /mnt/media/data/k3s-cluster
+  subDir: ${pvc.metadata.name}
+reclaimPolicy: Retain
+volumeBindingMode: Immediate
+mountOptions:
+  - nfsvers=4.2

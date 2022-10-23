@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: synapse
+resources:
+  - deployment.yaml
+  - ingress.yaml
+  - pvc.yaml
+  - service.yaml
+  - sealedsecret.yaml
+generatorOptions:
+  disableNameSuffixHash: true
+configMapGenerator:
+  - name: matrix-synapse
+    files:
+      - configs/homeserver.yaml
+      - configs/log.yaml
+  - name: matrix-synapse-workers
+    files:
+      - configs/appservice-worker.yaml
+      - configs/generic-worker.yaml

@@ -1,0 +1,35 @@
+---
+# Source: matrix-bridges/templates/signal-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mx-puppet-groupme
+spec:
+  replicas: 1
+  template:
+    spec:
+      serviceAccountName: mx-puppet-groupme
+      containers:
+        - name: mx-puppet-groupme
+          image: registry.gitlab.com/xangelix-pub/matrix/mx-puppet-groupme:533cccc8
+          ports:
+            - name: http
+              containerPort: 8437
+              protocol: TCP
+          env:
+            - name: CONFIG_PATH
+              value: /etc/mx-puppet-groupme/config.yaml
+            - name: REGISTRATION_PATH
+              value: /var/lib/mx-puppet-groupme/mx-puppet-groupme.yaml
+          volumeMounts:
+            - name: config
+              mountPath: /etc/mx-puppet-groupme
+            - name: registration
+              mountPath: /var/lib/mx-puppet-groupme
+      volumes:
+        - name: config
+          secret:
+            secretName: mx-puppet-groupme-config
+        - name: registration
+          secret:
+            secretName: appservice-registrations

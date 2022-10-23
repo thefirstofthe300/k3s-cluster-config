@@ -1,0 +1,422 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: matrix-synapse
+  labels:
+    app.kubernetes.io/name: matrix-synapse
+    app.kubernetes.io/instance: matrix-synapse
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+spec:
+  tls:
+    - hosts:
+        - seymour.family
+        - matrix.seymour.family
+      secretName: synapse-tls
+  rules:
+    - host: seymour.family
+      http:
+        paths:
+          - path: "/"
+            backend:
+              service:
+                name: matrix-synapse
+                port:
+                  number: 8008
+            pathType: ImplementationSpecific
+    - host: matrix.seymour.family
+      http:
+        paths:
+          - path: "/{path:_matrix/client/(r0|v3)/sync$}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/client/(api/v1|r0|v3)/events$}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/client/(api/v1|r0|v3)/initialSync$}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/client/(api/v1|r0|v3)/rooms/[^/]+/initialSync$}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/client/(api/v1|r0|v3|unstable)/createRoom$}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/client/(api/v1|r0|v3|unstable)/publicRooms$}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/joined_members$}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/context/}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/members$}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/state$}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/client/v1/rooms/.*/hierarchy$}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/client/unstable/org.matrix.msc2716/rooms/.*/batch_send$}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/client/unstable/im.nheko.summary/rooms/.*/summary$}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/client/(r0|v3|unstable)/account/3pid$}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/client/(r0|v3|unstable)/account/whoami$}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/client/(r0|v3|unstable)/devices$}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/client/versions$}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/client/(api/v1|r0|v3|unstable)/voip/turnServer$}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/event/}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/client/(api/v1|r0|v3|unstable)/joined_rooms$}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/client/(api/v1|r0|v3|unstable)/search$}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/client/(r0|v3|unstable)/keys/query$}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/client/(r0|v3|unstable)/keys/changes$}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/client/(r0|v3|unstable)/keys/claim$}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/client/(r0|v3|unstable)/room_keys/}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/client/(api/v1|r0|v3|unstable)/login$}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/client/(r0|v3|unstable)/register$}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/client/v1/register/m.login.registration_token/validity$}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/redact}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/send}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/state/}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/(join|invite|leave|ban|unban|kick)$}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/client/(api/v1|r0|v3|unstable)/join/}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/client/(api/v1|r0|v3|unstable)/profile/}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/client/(r0|v3|unstable)/user_directory/search}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/federation/v1/event/}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/federation/v1/state/}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/federation/v1/state_ids/}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/federation/v1/backfill/}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/federation/v1/get_missing_events/}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/federation/v1/publicRooms}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/federation/v1/query/}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/federation/v1/make_join/}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/federation/v1/make_leave/}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/federation/(v1|v2)/send_join/}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/federation/(v1|v2)/send_leave/}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/federation/(v1|v2)/invite/}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/federation/v1/event_auth/}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/federation/v1/exchange_third_party_invite/}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/federation/v1/user/devices/}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/key/v2/query}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/federation/v1/hierarchy/}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: "/{path:_matrix/federation/v1/send/}"
+            backend:
+              service:
+                name: matrix-synapse-generic-worker
+                port:
+                  number: 8083
+            pathType: ImplementationSpecific
+          - path: /_matrix
+            backend:
+              service:
+                name: matrix-synapse
+                port:
+                  number: 8008
+            pathType: Prefix
+          - path: /_synapse
+            backend:
+              service:
+                name: matrix-synapse
+                port:
+                  number: 8008
+            pathType: Prefix
+          - path: /.well-known/matrix
+            backend:
+              service:
+                name: matrix-synapse
+                port:
+                  number: 8008
+            pathType: Prefix

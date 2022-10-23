@@ -14,5 +14,5 @@ spec:
         name: bitnami
         namespace: flux-system
       interval: 1m
-    valuesFiles:
-      - values.yaml
+      valuesFiles:
+        - values.yaml

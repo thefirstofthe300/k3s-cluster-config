@@ -14,11 +14,8 @@ resources:
   - imageupdates.yaml
 images:
   - name: altran1502/immich-server
-    newName: altran1502/immich-server # {"$imagepolicy": "immich:immich-server:name"}
-    newTag: v1.31.1_49-dev # {"$imagepolicy": "immich:immich-server:tag"}
+    newTag: v1.35.0_54-dev # {"$imagepolicy": "immich:immich-server:tag"}
   - name: altran1502/immich-machine-learning
-    newName: altran1502/immich-machine-learning # {"$imagepolicy": "immich:immich-machine-learning:name"}
-    newTag: v1.31.1_49-dev # {"$imagepolicy": "immich:immich-machine-learning:tag"}
+    newTag: v1.35.0_54-dev # {"$imagepolicy": "immich:immich-machine-learning:tag"}
   - name: altran1502/immich-web
-    newName: altran1502/immich-web # {"$imagepolicy": "immich:immich-web:name"}
-    newTag: v1.31.1_49-dev # {"$imagepolicy": "immich:immich-web:tag"}
+    newTag: v1.35.0_54-dev # {"$imagepolicy": "immich:immich-web:tag"}

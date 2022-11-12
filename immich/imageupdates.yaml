@@ -1,0 +1,104 @@
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: immich-server
+  namespace: immich
+spec:
+  image: altran1502/immich-server
+  interval: 1h0m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: immich-server
+  namespace: immich
+spec:
+  imageRepositoryRef:
+    name: immich-server
+  policy:
+    semver:
+      range: v1.x.x
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: immich-machine-learning
+  namespace: immich
+spec:
+  image: altran1502/immich-machine-learning
+  interval: 1h0m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: immich-machine-learning
+  namespace: immich
+spec:
+  imageRepositoryRef:
+    name: immich-machine-learning
+  policy:
+    semver:
+      range: v1.x.x
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: immich-web
+  namespace: immich
+spec:
+  image: altran1502/immich-web
+  interval: 1h0m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: immich-web
+  namespace: immich
+spec:
+  imageRepositoryRef:
+    name: immich-web
+  policy:
+    semver:
+      range: v1.x.x
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageUpdateAutomation
+metadata:
+  name: immich
+  namespace: immich
+spec:
+  interval: 1m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  git:
+    checkout:
+      ref:
+        branch: main
+    commit:
+      author:
+        email: fluxcdbot@users.noreply.github.com
+        name: fluxcdbot
+      messageTemplate: |
+        Automated image update
+
+        Automation name: {{ .AutomationObject }}
+
+        Files:
+        {{ range $filename, $_ := .Updated.Files -}}
+        - {{ $filename }}
+        {{ end -}}
+
+        Objects:
+        {{ range $resource, $_ := .Updated.Objects -}}
+        - {{ $resource.Kind }} {{ $resource.Name }}
+        {{ end -}}
+
+        Images:
+        {{ range .Updated.Images -}}
+        - {{.}}
+        {{ end -}}
+    push:
+      branch: flux-image-updates

@@ -1,20 +1,21 @@
 resources:
-  # - microservices-deployment.yaml
+  - microservices-deployment.yaml
   - microservices-service.yaml
   - ml-deployment.yaml
   - ml-service.yaml
   - sealedsecrets.yaml
   - pvc.yaml
-  # - server-deployment.yaml
+  - server-deployment.yaml
   - server-service.yaml
   - server-ingress.yaml
   - web-deployment.yaml
   - web-ingress.yaml
   - web-service.yaml
+  - imageupdates.yaml
 images:
   - name: altran1502/immich-server
-    newTag: v1.31.1_49-dev
+    newTag: v1.31.1_49-dev # {"$imagepolicy": "immich:immich-server:tag"}
   - name: altran1502/immich-machine-learning
-    newTag: v1.31.1_49-dev
+    newTag: v1.31.1_49-dev # {"$imagepolicy": "immich:immich-machine-learning:tag"}
   - name: altran1502/immich-web
-    newTag: v1.31.1_49-dev
+    newTag: v1.31.1_49-dev # {"$imagepolicy": "immich:immich-web:tag"}

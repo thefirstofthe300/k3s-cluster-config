@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: immich-microservices
+  namespace: immich
+  labels:
+    app.kubernetes.io/name: microservices
+    app.kubernetes.io/instance: immich
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: microservices
+      app.kubernetes.io/instance: immich
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: microservices
+        app.kubernetes.io/instance: immich
+    spec:
+      containers:
+        - name: microservices
+          image: altran1502/immich-server
+          command:
+            - /bin/sh
+            - ./start-microservices.sh
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: secret
+            - name: REDIS_HOSTNAME
+              valueFrom:
+                secretKeyRef:
+                  name: redis-creds
+                  key: hostname
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: redis-creds
+                  key: password
+            - name: REDIS_DBINDEX
+              value: "1"
+            - name: REDIS_PORT
+              value: "6379"
+            - name: DB_HOSTNAME
+              value: postgresql-hl.postgres.svc
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: username
+                  name: postgres-creds
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: postgres-creds
+            - name: DB_DATABASE_NAME
+              value: immich
+            - name: ENABLE_MAPBOX
+              value: "false"
+          ports:
+            - containerPort: 3002
+              name: http
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /usr/src/app/upload
+              name: upload
+      serviceAccountName: immich-microservices
+      volumes:
+        - name: upload
+          persistentVolumeClaim:
+            claimName: immich-upload

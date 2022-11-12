@@ -16,6 +16,9 @@ metadata:
 spec:
   imageRepositoryRef:
     name: immich-server
+  filterTags:
+    pattern: "(?P<version>.*)_[0-9]+-dev"
+    extract: "$version"
   policy:
     semver:
       range: v1.x.x
@@ -37,6 +40,9 @@ metadata:
 spec:
   imageRepositoryRef:
     name: immich-machine-learning
+  filterTags:
+    pattern: "(?P<version>.*)_[0-9]+-dev"
+    extract: "$version"
   policy:
     semver:
       range: v1.x.x
@@ -58,6 +64,9 @@ metadata:
 spec:
   imageRepositoryRef:
     name: immich-web
+  filterTags:
+    pattern: "(?P<version>.*)_[0-9]+-dev"
+    extract: "$version"
   policy:
     semver:
       range: v1.x.x

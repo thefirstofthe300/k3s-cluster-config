@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
         - name: synapse
-          image: matrixdotorg/synapse:v1.71.0 # {"$imagepolicy": "flux-system:synapse"}
+          image: matrixdotorg/synapse:v1.72.0 # {"$imagepolicy": "flux-system:synapse"}
           args:
             - run
             - -m
@@ -138,7 +138,7 @@ spec:
             - /data/config/secret/config.yaml
             - -c
             - /data/config/worker/appservice-worker.yaml
-          image: matrixdotorg/synapse:v1.71.0 # {"$imagepolicy": "flux-system:synapse"}
+          image: matrixdotorg/synapse:v1.72.0 # {"$imagepolicy": "flux-system:synapse"}
           imagePullPolicy: IfNotPresent
           ports:
             - name: metrics
@@ -238,7 +238,7 @@ spec:
             - /data/config/secret/config.yaml
             - -c
             - /data/config/worker/generic-worker.yaml
-          image: matrixdotorg/synapse:v1.71.0 # {"$imagepolicy": "flux-system:synapse"}
+          image: matrixdotorg/synapse:v1.72.0 # {"$imagepolicy": "flux-system:synapse"}
           imagePullPolicy: IfNotPresent
           ports:
             - name: metrics

@@ -64,7 +64,7 @@ spec:
             - name: appservices
               mountPath: /data/appservices
             - name: shared-secret-authenticator
-              mountPath: /usr/local/lib/python3.9/site-packages/shared_secret_authenticator.py
+              mountPath: /usr/local/lib/python3.11/site-packages/shared_secret_authenticator.py
               subPath: shared_secret_authenticator.py
           resources:
             limits:
@@ -167,7 +167,7 @@ spec:
             - name: appservices
               mountPath: /data/appservices
             - name: shared-secret-authenticator
-              mountPath: /usr/local/lib/python3.9/site-packages/shared_secret_authenticator.py
+              mountPath: /usr/local/lib/python3.11/site-packages/shared_secret_authenticator.py
               subPath: shared_secret_authenticator.py
       volumes:
         - name: config
@@ -275,7 +275,7 @@ spec:
             - name: appservices
               mountPath: /data/appservices
             - name: shared-secret-authenticator
-              mountPath: /usr/local/lib/python3.9/site-packages/shared_secret_authenticator.py
+              mountPath: /usr/local/lib/python3.11/site-packages/shared_secret_authenticator.py
               subPath: shared_secret_authenticator.py
       volumes:
         - name: config

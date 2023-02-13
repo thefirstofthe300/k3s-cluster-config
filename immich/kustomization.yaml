@@ -18,4 +18,4 @@ images:
   - name: altran1502/immich-machine-learning
     newTag: v1.47.2 # {"$imagepolicy": "immich:immich-machine-learning:tag"}
   - name: altran1502/immich-web
-    newTag: v1.47.0 # {"$imagepolicy": "immich:immich-web:tag"}
+    newTag: v1.47.2 # {"$imagepolicy": "immich:immich-web:tag"}

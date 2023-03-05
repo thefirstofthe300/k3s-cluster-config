@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: plex
+resources:
+  - deployment.yaml
+  - ingress.yaml
+  - pv.yaml
+  - service.yaml
+  - rbac.yaml
+  - images.yaml
+  - updateautomation.yaml
+images:
+- name: plexinc/pms-docker
+  newTag: 1.31.0.6654-02189b09f # {"$imagepolicy": "plex:plex"}

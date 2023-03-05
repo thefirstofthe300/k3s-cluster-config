@@ -12,7 +12,7 @@ spec:
       paths:
       - backend:
           service:
-            name: plex-kube-plex
+            name: plex
             port:
               name: pms
         path: /

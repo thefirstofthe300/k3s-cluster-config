@@ -63,6 +63,7 @@ spec:
           name: config
         - mountPath: /transcode
           name: transcode
+        - mountPath: /shared
           name: shared
         - mountPath: /cert
           name: cert
@@ -82,4 +83,3 @@ spec:
         secret:
           defaultMode: 420
           secretName: plex-cert
-

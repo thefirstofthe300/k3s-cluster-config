@@ -21,5 +21,5 @@ spec:
     protocol: TCP
     targetPort: 32443
   selector:
-    app: kube-plex
+    app: plex
   type: NodePort

@@ -21,9 +21,6 @@ spec:
       containers:
         - name: machine-learning
           image: altran1502/immich-machine-learning
-          command:
-            - /bin/sh
-            - ./entrypoint.sh
           env:
             - name: NODE_ENV
               value: production
@@ -50,8 +47,12 @@ spec:
           volumeMounts:
             - mountPath: /usr/src/app/upload
               name: upload
+            - name: cache
+              mountPath: /cache
       serviceAccountName: immich-machine-learning
       volumes:
         - name: upload
           persistentVolumeClaim:
             claimName: immich-upload
+        - name: cache
+          emptyDir: {}

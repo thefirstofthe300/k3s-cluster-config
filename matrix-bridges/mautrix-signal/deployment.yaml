@@ -10,7 +10,7 @@ spec:
       serviceAccountName: mautrix-signal
       containers:
         - name: mautrix-signal
-          image: "dock.mau.dev/mautrix/signal:v0.4.0"
+          image: "dock.mau.dev/mautrix/signal:v0.4.2"
           imagePullPolicy: IfNotPresent
           command:
             - python3
@@ -37,7 +37,7 @@ spec:
             - name: signald
               mountPath: /signald
         - name: signald
-          image: "signald/signald:0.23.0"
+          image: "signald/signald:0.23.2"
           imagePullPolicy: IfNotPresent
           resources: {}
           volumeMounts:

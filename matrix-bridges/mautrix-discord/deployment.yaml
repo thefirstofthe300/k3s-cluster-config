@@ -11,7 +11,7 @@ spec:
       serviceAccountName: mautrix-discord
       containers:
         - name: mautrix-discord
-          image: dock.mau.dev/mautrix/discord:latest
+          image: dock.mau.dev/mautrix/discord:v0.1.1
           imagePullPolicy: IfNotPresent
           command:
             - /usr/bin/mautrix-discord

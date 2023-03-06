@@ -21,6 +21,9 @@ spec:
       containers:
         - name: machine-learning
           image: altran1502/immich-machine-learning
+          command: 
+            - "python"
+            - "src/main.py"
           env:
             - name: NODE_ENV
               value: production

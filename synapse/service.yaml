@@ -6,10 +6,12 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-    - port: 8008
+    - name: http
+      port: 8008
       targetPort: http
-      protocol: TCP
-      name: http
+    - name: slidingsync
+      port: 8009
+      targetPort: slidingsync
   selector:
     app.kubernetes.io/component: synapse
     app.kubernetes.io/instance: matrix-synapse

@@ -68,36 +68,39 @@ spec:
               subPath: shared_secret_authenticator.py
           resources:
             limits:
-              cpu: 1000m
               memory: 2Gi
             requests:
-              cpu: 500m
+              cpu: 1000m
+              memory: 1Gi
+        - name: sliding-sync
+          image: ghcr.io/matrix-org/sliding-sync:v0.99.1 # {"$imagepolicy": "synapse:sliding-sync:tag"}
+          env:
+            - name: SYNCV3_BINDADDR
+              value: 0.0.0.0:8008
+            - name: SYNCV3_SERVER
+              value: https://matrix.seymour.family
+            - name: SYNCV3_DB
+              value: user=slidingsync dbname=slidingsync password=jBrFVjNV4yxaT2n79YXd sslmode=disable host=postgresql-0.postgres
+            - name: SYNCV3_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: sliding-sync
+                  key: secret
+          ports:
+            - name: slidingsync
+              containerPort: 8008
+            - name: metrics
+              containerPort: 2112
+          resources:
+            limits:
+              memory: 2Gi
+            requests:
+              cpu: 100m
               memory: 1Gi
       volumes:
-        - name: config
-          configMap:
-            name: matrix-synapse
         - name: secrets
           secret:
-            secretName: matrix-synapse
-        - name: signingkey
-          secret:
-            secretName: "matrix-synapse-signingkey"
-            items:
-              - key: "signing.key"
-                path: signing.key
-        - name: media
-          persistentVolumeClaim:
-            claimName: matrix-synapse
-        - name: appservices
-          secret:
-            secretName: appservice-registrations
-        - name: shared-secret-authenticator
-          configMap:
-            name: shared-secret-authenticator
-            items:
-              - key: shared_secret_authenticator.py
-                path: shared_secret_authenticator.py
+            secretName: sliding-sync
 ---
 apiVersion: apps/v1
 kind: Deployment

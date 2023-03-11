@@ -3,11 +3,13 @@ kind: Kustomization
 namespace: synapse
 resources:
   - deployment.yaml
+  - images.yaml
   - ingress.yaml
   - pvc.yaml
-  - service.yaml
   - sealedsecret.yaml
   - secret.yaml
+  - service.yaml
+  - updateautomation.yaml
 generatorOptions:
   disableNameSuffixHash: true
 configMapGenerator:
@@ -22,3 +24,8 @@ configMapGenerator:
   - name: shared-secret-authenticator
     files:
       - shared_secret_authenticator.py=configs/shared-secret-authenticator.py
+images:
+  - name: matrixdotorg/synapse
+    newTag: v1.78.0 # {"$imagepolicy": "synapse:synapse:tag"}
+  - name: ghcr.io/matrix-org/sliding-sync
+    newTag: v0.99.0 # {"$imagepolicy": "synapse:sliding-sync:tag"}

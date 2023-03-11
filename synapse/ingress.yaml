@@ -425,5 +425,5 @@ spec:
               service:
                 name: matrix-synapse
                 port:
-                  number: 8008
+                  name: well-known
             pathType: Prefix

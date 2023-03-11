@@ -12,6 +12,9 @@ spec:
     - name: slidingsync
       port: 8009
       targetPort: slidingsync
+    - name: well-known
+      port: 8010
+      targetPort: well-known
   selector:
     app.kubernetes.io/component: synapse
     app.kubernetes.io/instance: matrix-synapse

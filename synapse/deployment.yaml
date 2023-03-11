@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
         - name: synapse
-          image: matrixdotorg/synapse:v1.78.0 # {"$imagepolicy": "flux-system:synapse"}
+          image: matrixdotorg/synapse:v1.78.0
           args:
             - run
             - -m
@@ -73,14 +73,17 @@ spec:
               cpu: 1000m
               memory: 1Gi
         - name: sliding-sync
-          image: ghcr.io/matrix-org/sliding-sync:v0.99.1 # {"$imagepolicy": "synapse:sliding-sync:tag"}
+          image: ghcr.io/matrix-org/sliding-sync:v0.99.1
           env:
             - name: SYNCV3_BINDADDR
-              value: 0.0.0.0:8008
+              value: 0.0.0.0:8009
             - name: SYNCV3_SERVER
               value: https://matrix.seymour.family
             - name: SYNCV3_DB
-              value: user=slidingsync dbname=slidingsync password=jBrFVjNV4yxaT2n79YXd sslmode=disable host=postgresql-0.postgres
+              valueFrom:
+                secretKeyRef:
+                  name: sliding-sync
+                  key: connection-string
             - name: SYNCV3_SECRET
               valueFrom:
                 secretKeyRef:
@@ -88,7 +91,7 @@ spec:
                   key: secret
           ports:
             - name: slidingsync
-              containerPort: 8008
+              containerPort: 8009
             - name: metrics
               containerPort: 2112
           resources:
@@ -97,10 +100,43 @@ spec:
             requests:
               cpu: 100m
               memory: 1Gi
+        - name: well-known
+          image: firstofth300/matrix-federation:latest
+          ports:
+            - name: well-known
+              containerPort: 80
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi
+            requests:
+              cpu: 100m
+              memory: 10Mi
       volumes:
+        - name: config
+          configMap:
+            name: matrix-synapse
         - name: secrets
           secret:
-            secretName: sliding-sync
+            secretName: matrix-synapse
+        - name: signingkey
+          secret:
+            secretName: "matrix-synapse-signingkey"
+            items:
+              - key: "signing.key"
+                path: signing.key
+        - name: media
+          persistentVolumeClaim:
+            claimName: matrix-synapse
+        - name: appservices
+          secret:
+            secretName: appservice-registrations
+        - name: shared-secret-authenticator
+          configMap:
+            name: shared-secret-authenticator
+            items:
+              - key: shared_secret_authenticator.py
+                path: shared_secret_authenticator.py
 ---
 apiVersion: apps/v1
 kind: Deployment

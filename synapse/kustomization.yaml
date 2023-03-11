@@ -7,7 +7,6 @@ resources:
   - ingress.yaml
   - pvc.yaml
   - sealedsecret.yaml
-  - secret.yaml
   - service.yaml
   - updateautomation.yaml
 generatorOptions:

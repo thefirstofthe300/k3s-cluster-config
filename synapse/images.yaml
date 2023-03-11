@@ -23,16 +23,16 @@ kind: ImageRepository
 metadata:
   name: sliding-sync
 spec:
-  image: matrixdotorg/synapse
+  image: ghcr.io/matrix-org/sliding-sync
   interval: 1h0m0s
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImagePolicy
 metadata:
-  name: synapse
+  name: sliding-sync
 spec:
   imageRepositoryRef:
-    name: synapse
+    name: sliding-sync
   policy:
     semver:
       range: v0.x.x

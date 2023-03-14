@@ -8,6 +8,7 @@ resources:
   - pvc.yaml
   - sealedsecret.yaml
   - service.yaml
+  - servicemonitor.yaml
   - updateautomation.yaml
 generatorOptions:
   disableNameSuffixHash: true

@@ -1,0 +1,7 @@
+resources:
+  - crds.yaml
+  - deployment.yaml
+  - namespace.yaml
+  - rbac.yaml
+  - service.yaml
+namespace: prometheus-operator

@@ -1,0 +1,10 @@
+resources:
+  - admission-webhook.yaml
+  - alertmanager.yaml
+  - certificates.yaml
+  - namespace.yaml
+  - prometheus.yaml
+  - rbac.yaml
+  - service.yaml
+  - validating-webhook.yaml
+namespace: prometheus

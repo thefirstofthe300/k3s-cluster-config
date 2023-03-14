@@ -27,3 +27,4 @@ worker_listeners:
         compress: false
 
 worker_log_config: /data/config/server/log.yaml
+enable_metrics: true

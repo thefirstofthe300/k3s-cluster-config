@@ -1,5 +1,14 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 bases:
-  - synapse
+  - cert-manager
   - flux-system
+  - immich
+  - matrix-bridges
+  - nfs-csi
+  - plex
+  - postgres
+  - prometheus-operator
+  - redis
+  - sealed-secrets
+  - synapse

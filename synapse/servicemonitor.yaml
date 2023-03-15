@@ -1,5 +1,5 @@
 apiVersion: monitoring.coreos.com/v1
-kind: PotMonitor
+kind: PodMonitor
 metadata:
   name: synapse
 spec:

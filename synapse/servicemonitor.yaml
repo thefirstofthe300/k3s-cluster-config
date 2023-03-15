@@ -6,6 +6,8 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: matrix-synapse
+      app.kubernetes.io/instance: matrix-synapse
+      app.kubernetes.io/component: metrics
   endpoints:
     - port: metrics
       path: /_synapse/metrics

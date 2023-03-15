@@ -1,5 +1,5 @@
 apiVersion: monitoring.coreos.com/v1
-kind: ServiceMonitor
+kind: PotMonitor
 metadata:
   name: synapse
 spec:
@@ -7,7 +7,6 @@ spec:
     matchLabels:
       app.kubernetes.io/name: matrix-synapse
       app.kubernetes.io/instance: matrix-synapse
-      app.kubernetes.io/component: metrics
-  endpoints:
+  podMetricsEndpoints:
     - port: metrics
       path: /_synapse/metrics

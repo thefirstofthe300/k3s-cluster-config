@@ -64,6 +64,8 @@ spec:
               value: immich
             - name: ENABLE_MAPBOX
               value: "false"
+            - name: TYPESENSE_API_KEY
+              value: xxx
           livenessProbe:
             failureThreshold: 3
             httpGet:

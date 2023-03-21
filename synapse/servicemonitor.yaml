@@ -10,3 +10,7 @@ spec:
   podMetricsEndpoints:
     - port: metrics
       path: /_synapse/metrics
+      relabelings:
+        - sourceLabels: [__meta_kubernetes_pod_name]
+          action: replace
+          targetLabel: job

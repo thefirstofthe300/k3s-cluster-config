@@ -1,3 +1,4 @@
+namespace: immich
 resources:
   - microservices-deployment.yaml
   - microservices-service.yaml
@@ -5,9 +6,12 @@ resources:
   - ml-service.yaml
   - sealedsecrets.yaml
   - pvc.yaml
+  - rbac.yaml
   - server-deployment.yaml
   - server-service.yaml
   - server-ingress.yaml
+  - typesense-deployment.yaml
+  - typesense-service.yaml
   - web-deployment.yaml
   - web-ingress.yaml
   - web-service.yaml
@@ -19,3 +23,5 @@ images:
     newTag: v1.51.1 # {"$imagepolicy": "immich:immich-machine-learning:tag"}
   - name: altran1502/immich-web
     newTag: v1.51.1 # {"$imagepolicy": "immich:immich-web:tag"}
+  - name: typesense/typesense
+    newTag: "0.24.0"

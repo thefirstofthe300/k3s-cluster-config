@@ -92,7 +92,7 @@ spec:
           ports:
             - name: slidingsync
               containerPort: 8009
-            - name: metrics
+            - name: ss-metrics
               containerPort: 2112
           resources:
             limits:

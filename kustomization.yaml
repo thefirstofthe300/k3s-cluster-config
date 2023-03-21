@@ -8,7 +8,6 @@ bases:
   - nfs-csi
   - plex
   - postgres
-  - prometheus-operator
   - redis
   - sealed-secrets
   - synapse

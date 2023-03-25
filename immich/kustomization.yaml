@@ -18,10 +18,10 @@ resources:
   - imageupdates.yaml
 images:
   - name: altran1502/immich-server
-    newTag: v1.51.1 # {"$imagepolicy": "immich:immich-server:tag"}
+    newTag: v1.51.2 # {"$imagepolicy": "immich:immich-server:tag"}
   - name: altran1502/immich-machine-learning
-    newTag: v1.51.1 # {"$imagepolicy": "immich:immich-machine-learning:tag"}
+    newTag: v1.51.2 # {"$imagepolicy": "immich:immich-machine-learning:tag"}
   - name: altran1502/immich-web
-    newTag: v1.51.1 # {"$imagepolicy": "immich:immich-web:tag"}
+    newTag: v1.51.2 # {"$imagepolicy": "immich:immich-web:tag"}
   - name: typesense/typesense
     newTag: "0.24.0"

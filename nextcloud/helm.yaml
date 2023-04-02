@@ -1,0 +1,73 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: postgresql
+  namespace: postgres
+spec:
+  interval: 1m
+  chart:
+    spec:
+      chart: postgresql
+      version: "11.9.1"
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami
+        namespace: flux-system
+      interval: 1m
+  valuesFrom:
+    - kind: Secret
+      name: nextcloud-values
+  values:
+    image:
+      tag: 26.0.0-fpm-alpine
+    nextcloud:
+      host: cloud.seymour.family
+      podSecurityContext:
+        fsGroupChangePolicy: OnRootMismatch
+      configs:
+        proxy.config.php: |-
+          <?php
+          $CONFIG = array (
+            'trusted_proxies' => array(
+              0 => '127.0.0.1',
+              1 => '10.0.0.0/8',
+            ),
+            'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
+            'default_phone_region' => '+1'
+          );
+    resources:
+      requests:
+        memory: 2Gi
+      limits:
+        memory: 4Gi
+    ingress:
+      enabled: true
+      ingressClass: traefik
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-production
+        traefik.ingress.kubernetes.io/router.middlewares: nextcloud-dav-redirect@kubernetescrd,nextcloud-webfinger-redirect@kubernetescrd,nextcloud-nodeinfo-redirect@kubernetescrd,nextcloud-no-robots@kubernetescrd
+      tls:
+        - hosts:
+            - cloud.seymour.family
+          secretName: nextcloud-tls
+    nginx:
+      enabled: true
+      resources:
+        requests:
+          memory: 10Mi
+        limits:
+          memory: 128Mi
+
+    internalDatabase:
+      enabled: false
+    externalDatabase:
+      enabled: true
+      type: postgresql
+      host: postgresql-hl.postgres:5432
+    cronjob:
+      enabled: true
+    persistence:
+      enabled: true
+      storageClass: nfs
+    phpClientHttpsFix:
+      enabled: true

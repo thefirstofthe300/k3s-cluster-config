@@ -11,3 +11,4 @@ bases:
   - redis
   - sealed-secrets
   - synapse
+  - nextcloud

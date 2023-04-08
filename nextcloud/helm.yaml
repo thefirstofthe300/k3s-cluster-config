@@ -5,6 +5,14 @@ metadata:
   namespace: nextcloud
 spec:
   interval: 1m
+  install:
+    disableWait: true
+    remediation:
+      remediateLastFailure: true
+  upgrade:
+    disableWait: true
+    remediation:
+      remediateLastFailure: true
   chart:
     spec:
       chart: nextcloud
@@ -19,11 +27,9 @@ spec:
       name: nextcloud-values
   values:
     image:
-      tag: 26.0.0-fpm-alpine
+      flavor: apache
     nextcloud:
       host: cloud.seymour.family
-      podSecurityContext:
-        fsGroupChangePolicy: OnRootMismatch
       configs:
         proxy.config.php: |-
           <?php
@@ -50,14 +56,6 @@ spec:
         - hosts:
             - cloud.seymour.family
           secretName: nextcloud-tls
-    nginx:
-      enabled: true
-      resources:
-        requests:
-          memory: 10Mi
-        limits:
-          memory: 128Mi
-
     internalDatabase:
       enabled: false
     externalDatabase:
@@ -68,6 +66,6 @@ spec:
       enabled: true
     persistence:
       enabled: true
-      storageClass: nfs
+      existingClaim: nextcloud-data
     phpClientHttpsFix:
       enabled: true

@@ -3,10 +3,11 @@
 server_name: "seymour.family"
 public_baseurl: "https://matrix.seymour.family"
 pid_file: /homeserver.pid
-web_client: False
+web_client: false
 soft_file_limit: 0
 log_config: "/data/config/server/log.yaml"
 report_stats: false
+url_preview_enabled: true
 
 ## Ports ##
 

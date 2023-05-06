@@ -7,7 +7,6 @@ web_client: false
 soft_file_limit: 0
 log_config: "/data/config/server/log.yaml"
 report_stats: false
-url_preview_enabled: true
 
 ## Ports ##
 
@@ -74,3 +73,8 @@ app_service_config_files:
   - /data/appservices/mautrix-discord.yaml
   - /data/appservices/mx-puppet-groupme.yaml
 suppress_key_server_warning: true
+url_preview_enabled: true
+url_preview_ip_range_blacklist:
+  - 192.168.0.0/16
+  - 172.16.0.0/12
+  - 10.0.0.0/8

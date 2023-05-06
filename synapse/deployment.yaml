@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
         - name: synapse
-          image: matrixdotorg/synapse:v1.78.0
+          image: matrixdotorg/synapse
           args:
             - run
             - -m
@@ -73,7 +73,7 @@ spec:
               cpu: 1000m
               memory: 1Gi
         - name: sliding-sync
-          image: ghcr.io/matrix-org/sliding-sync:v0.99.1
+          image: ghcr.io/matrix-org/sliding-sync
           env:
             - name: SYNCV3_BINDADDR
               value: 0.0.0.0:8009

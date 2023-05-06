@@ -7,6 +7,10 @@ resources:
   - rbac.yaml
   - pvc.yaml
   - sealedsecret.yaml
+  - images.yaml
 commonLabels:
   app.kubernetes.io/name: mautrix-signal
   app.kubernetes.io/managed-by: kustomize
+images:
+  - name: dock.mau.dev/mautrix/signal
+    newTag: v0.4.2 # {"$imagepolicy": "synapse:mautrix-signal:tag"}

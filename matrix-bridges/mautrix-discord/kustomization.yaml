@@ -9,3 +9,6 @@ resources:
 commonLabels:
   app.kubernetes.io/name: mautrix-discord
   app.kubernetes.io/managed-by: kustomize
+images:
+  - name: dock.mau.dev/mautrix/signal
+    newTag: v0.1.0 # {"$imagepolicy": "synapse:mautrix-discord:tag"}

@@ -6,6 +6,10 @@ resources:
   - service.yaml
   - rbac.yaml
   - sealedsecret.yaml
+  - images.yaml
 commonLabels:
   app.kubernetes.io/name: mautrix-telegram
   app.kubernetes.io/managed-by: kustomize
+images:
+  - name: dock.mau.dev/mautrix/telegram
+    newTag: v0.4.2 # {"$imagepolicy": "synapse:mautrix-telegram:tag"}

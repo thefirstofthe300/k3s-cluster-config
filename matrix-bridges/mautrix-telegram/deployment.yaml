@@ -11,7 +11,7 @@ spec:
       serviceAccountName: mautrix-telegram
       containers:
         - name: mautrix-telegram
-          image: "dock.mau.dev/mautrix/telegram:v0.12.1"
+          image: dock.mau.dev/mautrix/telegram
           imagePullPolicy: IfNotPresent
           command:
             - python3

@@ -15,4 +15,4 @@ images:
   - name: dock.mau.dev/mautrix/signal
     newTag: v0.4.2 # {"$imagepolicy": "synapse:mautrix-signal:tag"}
   - name: signald/signald
-    newTag: v0.23.2 # {"$imagepolicy": "synapse:signald:tag"}
+    newTag: 0.23.2 # {"$imagepolicy": "synapse:signald:tag"}

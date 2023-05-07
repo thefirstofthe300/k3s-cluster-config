@@ -24,6 +24,11 @@
 			"source": "${env:HOME}${env:USERPROFILE}/.kube",
 			"target": "/usr/local/share/kube-localhost",
 			"type": "bind"
+		},
+		{
+			"source": "${env:HOME}${env:USERPROFILE}/.ssh",
+			"target": "/home/vscode/.ssh",
+			"type": "bind"
 		}
 	],
 

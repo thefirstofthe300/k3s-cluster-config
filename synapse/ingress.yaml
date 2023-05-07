@@ -413,13 +413,6 @@ spec:
                 port:
                   number: 8008
             pathType: Prefix
-          - path: /_synapse
-            backend:
-              service:
-                name: matrix-synapse
-                port:
-                  number: 8008
-            pathType: Prefix
           - path: /.well-known/matrix
             backend:
               service:

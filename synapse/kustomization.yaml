@@ -19,9 +19,9 @@ configMapGenerator:
     files:
       - configs/appservice-worker.yaml
       - configs/generic-worker.yaml
-  - name: shared-secret-authenticator
-    files:
-      - shared_secret_authenticator.py=configs/shared-secret-authenticator.py
+  # - name: shared-secret-authenticator
+  #   files:
+  #     - shared_secret_authenticator.py=configs/shared-secret-authenticator.py
 images:
   - name: matrixdotorg/synapse
     newTag: v1.82.0 # {"$imagepolicy": "synapse:synapse:tag"}

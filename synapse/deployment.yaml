@@ -63,9 +63,9 @@ spec:
               mountPath: /data/media
             - name: appservices
               mountPath: /data/appservices
-            - name: shared-secret-authenticator
-              mountPath: /usr/local/lib/python3.11/site-packages/shared_secret_authenticator.py
-              subPath: shared_secret_authenticator.py
+            # - name: shared-secret-authenticator
+            #   mountPath: /usr/local/lib/python3.11/site-packages/shared_secret_authenticator.py
+            #   subPath: shared_secret_authenticator.py
           resources:
             limits:
               memory: 2Gi
@@ -131,12 +131,12 @@ spec:
         - name: appservices
           secret:
             secretName: appservice-registrations
-        - name: shared-secret-authenticator
-          configMap:
-            name: shared-secret-authenticator
-            items:
-              - key: shared_secret_authenticator.py
-                path: shared_secret_authenticator.py
+        # - name: shared-secret-authenticator
+        #   configMap:
+        #     name: shared-secret-authenticator
+        #     items:
+        #       - key: shared_secret_authenticator.py
+        #         path: shared_secret_authenticator.py
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -202,9 +202,9 @@ spec:
               mountPath: /data/media
             - name: appservices
               mountPath: /data/appservices
-            - name: shared-secret-authenticator
-              mountPath: /usr/local/lib/python3.11/site-packages/shared_secret_authenticator.py
-              subPath: shared_secret_authenticator.py
+            # - name: shared-secret-authenticator
+            #   mountPath: /usr/local/lib/python3.11/site-packages/shared_secret_authenticator.py
+            #   subPath: shared_secret_authenticator.py
       volumes:
         - name: config
           configMap:
@@ -227,9 +227,9 @@ spec:
         - name: appservices
           secret:
             secretName: appservice-registrations
-        - name: shared-secret-authenticator
-          configMap:
-            name: shared-secret-authenticator
+        # - name: shared-secret-authenticator
+        #   configMap:
+        #     name: shared-secret-authenticator
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -307,9 +307,9 @@ spec:
               mountPath: /data/media
             - name: appservices
               mountPath: /data/appservices
-            - name: shared-secret-authenticator
-              mountPath: /usr/local/lib/python3.11/site-packages/shared_secret_authenticator.py
-              subPath: shared_secret_authenticator.py
+            # - name: shared-secret-authenticator
+            #   mountPath: /usr/local/lib/python3.11/site-packages/shared_secret_authenticator.py
+            #   subPath: shared_secret_authenticator.py
       volumes:
         - name: config
           configMap:
@@ -332,6 +332,6 @@ spec:
         - name: appservices
           secret:
             secretName: appservice-registrations
-        - name: shared-secret-authenticator
-          configMap:
-            name: shared-secret-authenticator
+        # - name: shared-secret-authenticator
+        #   configMap:
+        #     name: shared-secret-authenticator

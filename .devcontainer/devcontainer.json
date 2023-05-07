@@ -29,6 +29,11 @@
 			"source": "${env:HOME}${env:USERPROFILE}/.ssh",
 			"target": "/home/vscode/.ssh",
 			"type": "bind"
+		},
+		{
+			"source": "${env:HOME}${env:USERPROFILE}/.1password",
+			"target": "/home/vscode/.1password",
+			"type": "bind"
 		}
 	],
 

@@ -15,10 +15,11 @@ spec:
       interval: 1m
   install:
     remediation:
-      retries: 1
+      retries: 3
+      remediateLastFailure: true
   upgrade:
     remediation:
-      retries: 1
+      retries: 3
   values:
     primary:
       podSecurityContext:

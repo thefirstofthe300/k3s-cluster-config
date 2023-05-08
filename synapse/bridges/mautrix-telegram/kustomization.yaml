@@ -8,8 +8,7 @@ resources:
   - sealedsecret.yaml
   - images.yaml
 commonLabels:
-  app.kubernetes.io/name: mautrix-discord
-  app.kubernetes.io/managed-by: kustomize
+  app.kubernetes.io/component: mautrix-telegram
 images:
-  - name: dock.mau.dev/mautrix/discord
-    newTag: v0.3.0 # {"$imagepolicy": "synapse:mautrix-discord:tag"}
+  - name: dock.mau.dev/mautrix/telegram
+    newTag: v0.13.0 # {"$imagepolicy": "synapse:mautrix-telegram:tag"}

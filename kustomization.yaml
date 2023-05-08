@@ -3,12 +3,12 @@ kind: Kustomization
 resources:
   - cert-manager
   - flux-system
-  - immich
-  - matrix-bridges
+  # - immich
   - nfs-csi
   - plex
   - postgres
   - redis
   - sealed-secrets
   - synapse
-  - nextcloud
+  # - nextcloud
+  - storageclass.yaml

@@ -2,7 +2,6 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: postgresql
-  namespace: postgres
 spec:
   interval: 1m
   chart:
@@ -14,5 +13,15 @@ spec:
         name: bitnami
         namespace: flux-system
       interval: 1m
-      valuesFiles:
-        - values.yaml
+  install:
+    remediation:
+      retries: 1
+  upgrade:
+    remediation:
+      retries: 1
+  values:
+    primary:
+      podSecurityContext:
+        fsGroupChangePolicy: Always
+      persistence:
+        existingClaim: postgres-data

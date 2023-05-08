@@ -3,23 +3,15 @@ kind: Deployment
 metadata:
   name: matrix-synapse
   labels:
-    app.kubernetes.io/name: matrix-synapse
-    app.kubernetes.io/instance: matrix-synapse
     app.kubernetes.io/component: synapse
 spec:
   replicas: 1
-  strategy:
-    type: RollingUpdate
   selector:
     matchLabels:
-      app.kubernetes.io/name: matrix-synapse
-      app.kubernetes.io/instance: matrix-synapse
       app.kubernetes.io/component: synapse
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: matrix-synapse
-        app.kubernetes.io/instance: matrix-synapse
         app.kubernetes.io/component: synapse
     spec:
       containers:
@@ -37,13 +29,8 @@ spec:
           ports:
             - name: http
               containerPort: 8008
-              protocol: TCP
-            - name: replication
-              containerPort: 9093
-              protocol: TCP
             - name: metrics
               containerPort: 9090
-              protocol: TCP
           livenessProbe:
             httpGet:
               path: /health
@@ -68,7 +55,7 @@ spec:
               subPath: shared_secret_authenticator.py
           resources:
             limits:
-              memory: 2Gi
+              memory: 4Gi
             requests:
               cpu: 1000m
               memory: 1Gi
@@ -96,12 +83,13 @@ spec:
               containerPort: 2112
           resources:
             limits:
-              memory: 2Gi
+              memory: 1Gi
             requests:
               cpu: 100m
               memory: 1Gi
         - name: well-known
           image: firstofth300/matrix-federation:latest
+          imagePullPolicy: Always
           ports:
             - name: well-known
               containerPort: 80
@@ -127,7 +115,7 @@ spec:
                 path: signing.key
         - name: media
           persistentVolumeClaim:
-            claimName: matrix-synapse
+            claimName: media
         - name: appservices
           secret:
             secretName: appservice-registrations
@@ -137,201 +125,3 @@ spec:
             items:
               - key: shared_secret_authenticator.py
                 path: shared_secret_authenticator.py
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: matrix-synapse-appservice
-  labels:
-    app.kubernetes.io/name: matrix-synapse
-    app.kubernetes.io/instance: matrix-synapse
-    app.kubernetes.io/component: appservice
-spec:
-  replicas: 1
-  strategy:
-    type: RollingUpdate
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: matrix-synapse
-      app.kubernetes.io/instance: matrix-synapse
-      app.kubernetes.io/component: appservice
-  template:
-    metadata:
-      labels:
-        app.kubernetes.io/name: matrix-synapse
-        app.kubernetes.io/instance: matrix-synapse
-        app.kubernetes.io/component: appservice
-    spec:
-      containers:
-        - name: appservice
-          args:
-            - run
-            - -m
-            - synapse.app.appservice
-            - -c
-            - /data/config/server/homeserver.yaml
-            - -c
-            - /data/config/secret/config.yaml
-            - -c
-            - /data/config/worker/appservice-worker.yaml
-          image: matrixdotorg/synapse:v1.78.0 # {"$imagepolicy": "flux-system:synapse"}
-          imagePullPolicy: IfNotPresent
-          ports:
-            - name: metrics
-              containerPort: 9090
-              protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: metrics
-          startupProbe:
-            failureThreshold: 6
-            httpGet:
-              path: /health
-              port: metrics
-          volumeMounts:
-            - name: config
-              mountPath: /data/config/server
-            - name: worker-config
-              mountPath: /data/config/worker
-            - name: secrets
-              mountPath: /data/config/secret
-            - name: signingkey
-              mountPath: /data/keys
-            - name: media
-              mountPath: /data/media
-            - name: appservices
-              mountPath: /data/appservices
-            - name: shared-secret-authenticator
-              mountPath: /usr/local/lib/python3.11/site-packages/shared_secret_authenticator.py
-              subPath: shared_secret_authenticator.py
-      volumes:
-        - name: config
-          configMap:
-            name: matrix-synapse
-        - name: worker-config
-          configMap:
-            name: matrix-synapse-workers
-        - name: secrets
-          secret:
-            secretName: matrix-synapse
-        - name: signingkey
-          secret:
-            secretName: "matrix-synapse-signingkey"
-            items:
-              - key: "signing.key"
-                path: signing.key
-        - name: media
-          persistentVolumeClaim:
-            claimName: matrix-synapse
-        - name: appservices
-          secret:
-            secretName: appservice-registrations
-        - name: shared-secret-authenticator
-          configMap:
-            name: shared-secret-authenticator
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: matrix-synapse-generic-worker
-  labels:
-    app.kubernetes.io/name: matrix-synapse
-    app.kubernetes.io/instance: matrix-synapse
-    app.kubernetes.io/component: generic-worker
-spec:
-  replicas: 3
-  strategy:
-    type: RollingUpdate
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: matrix-synapse
-      app.kubernetes.io/instance: matrix-synapse
-      app.kubernetes.io/component: generic-worker
-  template:
-    metadata:
-      annotations:
-        checksum/config: a8210b1867dc150e27080868a3753a64ff08f437326bfd4486900e03c5dfdc47
-        checksum/worker-config: d845172ea349845fbedc081ca512c958c11c0298f2f5d0454059036aa65ea0b6
-        checksum/secrets: ca8256bbaf3d0b69589bda69301323cdae69de99f89fc12c81909d685bec24c5
-      labels:
-        app.kubernetes.io/name: matrix-synapse
-        app.kubernetes.io/instance: matrix-synapse
-        app.kubernetes.io/component: generic-worker
-    spec:
-      containers:
-        - name: generic-worker
-          args:
-            - run
-            - -m
-            - synapse.app.generic_worker
-            - -c
-            - /data/config/server/homeserver.yaml
-            - -c
-            - /data/config/secret/config.yaml
-            - -c
-            - /data/config/worker/generic-worker.yaml
-          image: matrixdotorg/synapse:v1.78.0 # {"$imagepolicy": "flux-system:synapse"}
-          imagePullPolicy: IfNotPresent
-          ports:
-            - name: metrics
-              containerPort: 9090
-              protocol: TCP
-            - name: listener
-              containerPort: 8083
-              protocol: TCP
-          readinessProbe:
-            httpGet:
-              path: /health
-              port: metrics
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: metrics
-          startupProbe:
-            failureThreshold: 6
-            httpGet:
-              path: /health
-              port: metrics
-          resources: {}
-          volumeMounts:
-            - name: config
-              mountPath: /data/config/server
-            - name: worker-config
-              mountPath: /data/config/worker
-            - name: secrets
-              mountPath: /data/config/secret
-            - name: signingkey
-              mountPath: /data/keys
-            - name: media
-              mountPath: /data/media
-            - name: appservices
-              mountPath: /data/appservices
-            - name: shared-secret-authenticator
-              mountPath: /usr/local/lib/python3.11/site-packages/shared_secret_authenticator.py
-              subPath: shared_secret_authenticator.py
-      volumes:
-        - name: config
-          configMap:
-            name: matrix-synapse
-        - name: worker-config
-          configMap:
-            name: matrix-synapse-workers
-        - name: secrets
-          secret:
-            secretName: matrix-synapse
-        - name: signingkey
-          secret:
-            secretName: "matrix-synapse-signingkey"
-            items:
-              - key: "signing.key"
-                path: signing.key
-        - name: media
-          persistentVolumeClaim:
-            claimName: matrix-synapse
-        - name: appservices
-          secret:
-            secretName: appservice-registrations
-        - name: shared-secret-authenticator
-          configMap:
-            name: shared-secret-authenticator

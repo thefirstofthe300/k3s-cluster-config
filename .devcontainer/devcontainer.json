@@ -12,7 +12,8 @@
 			"minikube": "none"
 		},
 		"./local-features/copy-kube-config": {},
-		"ghcr.io/jsburckhardt/devcontainer-features/flux:1": {}
+		"ghcr.io/jsburckhardt/devcontainer-features/flux:1": {},
+		"ghcr.io/gickis/devcontainer-features/kubeseal:1": {}
 	},
 
 	"remoteEnv": {

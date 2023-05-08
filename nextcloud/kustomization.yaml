@@ -4,5 +4,4 @@ resources:
   - helm.yaml
   - redirect.yaml
   - sealedsecret.yaml
-  - pv.yaml
-  - pvc.yaml
+  - storage.yaml

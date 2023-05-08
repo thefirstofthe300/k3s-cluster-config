@@ -66,6 +66,6 @@ spec:
       enabled: true
     persistence:
       enabled: true
-      existingClaim: nextcloud-data
+      existingClaim: data
     phpClientHttpsFix:
       enabled: true

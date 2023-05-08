@@ -1,3 +1,0 @@
-primary:
-  persistence:
-    existingClaim: postgres-data

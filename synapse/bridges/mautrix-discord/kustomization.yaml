@@ -6,6 +6,9 @@ resources:
   - service.yaml
   - rbac.yaml
   - sealedsecret.yaml
+  - images.yaml
 commonLabels:
-  app.kubernetes.io/name: mx-puppet-groupme
-  app.kubernetes.io/managed-by: kustomize
+  app.kubernetes.io/component: mautrix-discord
+images:
+  - name: dock.mau.dev/mautrix/discord
+    newTag: v0.3.0 # {"$imagepolicy": "synapse:mautrix-discord:tag"}

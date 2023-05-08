@@ -4,8 +4,6 @@ kind: Service
 metadata:
   name: matrix-synapse
   labels:
-    app.kubernetes.io/instance: matrix-synapse
-    app.kubernetes.io/name: matrix-synapse
     app.kubernetes.io/component: synapse
 spec:
   type: ClusterIP
@@ -20,62 +18,4 @@ spec:
       port: 8010
       targetPort: well-known
   selector:
-    app.kubernetes.io/name: matrix-synapse
-    app.kubernetes.io/instance: matrix-synapse
     app.kubernetes.io/component: synapse
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: matrix-synapse-replication
-  labels:
-    app.kubernetes.io/instance: matrix-synapse
-    app.kubernetes.io/name: matrix-synapse
-spec:
-  type: ClusterIP
-  ports:
-    - port: 9093
-      targetPort: replication
-      protocol: TCP
-      name: replication
-  selector:
-    app.kubernetes.io/name: matrix-synapse
-    app.kubernetes.io/instance: matrix-synapse
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: matrix-synapse-generic-worker
-  labels:
-    app.kubernetes.io/name: matrix-synapse
-    app.kubernetes.io/instance: matrix-synapse
-    app.kubernetes.io/component: generic-worker
-spec:
-  type: ClusterIP
-  ports:
-    - port: 8083
-      targetPort: listener
-      protocol: TCP
-      name: listener
-  selector:
-    app.kubernetes.io/name: matrix-synapse
-    app.kubernetes.io/instance: matrix-synapse
-    app.kubernetes.io/component: generic-worker
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: matrix-synapse-metrics
-  labels:
-    app.kubernetes.io/name: matrix-synapse
-    app.kubernetes.io/instance: matrix-synapse
-    app.kubernetes.io/component: metrics
-spec:
-  type: ClusterIP
-  ports:
-    - name: metrics
-      port: 9090
-      targetPort: metrics
-  selector:
-    app.kubernetes.io/instance: matrix-synapse
-    app.kubernetes.io/name: matrix-synapse

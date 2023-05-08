@@ -60,11 +60,6 @@ signing_key_path: "/data/keys/signing.key"
 trusted_key_servers:
   - server_name: matrix.org
 
-## Workers ##
-
-# For appservice worker
-notify_appservices: false
-
 ## Extra config ##
 enable_registration_without_verification: true
 app_service_config_files:
@@ -78,3 +73,6 @@ url_preview_ip_range_blacklist:
   - 192.168.0.0/16
   - 172.16.0.0/12
   - 10.0.0.0/8
+
+experimental_features:
+  msc2659_enabled: true

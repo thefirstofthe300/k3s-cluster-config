@@ -18,7 +18,7 @@ spec:
         - name: TZ
           value: America/Los_Angeles
         - name: PLEX_CLAIM
-          value: claim-CHtheTzc7uTNeVn3HDiV
+          value: claim-yQ4sQCw1dyS87dosvSSA
         - name: PLEX_UID
           value: "972"
         - name: PLEX_GID
@@ -71,7 +71,7 @@ spec:
           claimName: media
       - name: config
         persistentVolumeClaim:
-          claimName: plex-data
+          claimName: data
       - emptyDir: {}
         name: transcode
       - emptyDir: {}

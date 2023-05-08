@@ -1,21 +1,21 @@
 namespace: immich
 resources:
+  - imageupdates.yaml
   - microservices-deployment.yaml
   - microservices-service.yaml
   - ml-deployment.yaml
   - ml-service.yaml
-  - sealedsecrets.yaml
-  - pvc.yaml
   - rbac.yaml
+  - sealedsecrets.yaml
   - server-deployment.yaml
-  - server-service.yaml
   - server-ingress.yaml
+  - server-service.yaml
+  - storage.yaml
   - typesense-deployment.yaml
   - typesense-service.yaml
   - web-deployment.yaml
   - web-ingress.yaml
   - web-service.yaml
-  - imageupdates.yaml
 images:
   - name: altran1502/immich-server
     newTag: v1.54.1 # {"$imagepolicy": "immich:immich-server:tag"}

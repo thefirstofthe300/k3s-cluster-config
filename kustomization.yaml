@@ -10,5 +10,5 @@ resources:
   - redis
   - sealed-secrets
   - synapse
-  # - nextcloud
+  - nextcloud
   - storageclass.yaml

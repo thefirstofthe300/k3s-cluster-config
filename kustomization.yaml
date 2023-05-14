@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
   - cert-manager
   - flux-system
-  # - immich
+  - immich
   - nfs-csi
   - plex
   - postgres

@@ -3,16 +3,14 @@ apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImageRepository
 metadata:
   name: immich-server
-  namespace: immich
 spec:
-  image: altran1502/immich-server
+  image: ghcr.io/immich-app/immich-server
   interval: 1h0m0s
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImagePolicy
 metadata:
-  name: immich-server
-  namespace: immich
+  name: immich
 spec:
   imageRepositoryRef:
     name: immich-server
@@ -23,50 +21,26 @@ spec:
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImageRepository
 metadata:
-  name: immich-machine-learning
-  namespace: immich
+  name: typesense
 spec:
-  image: altran1502/immich-machine-learning
+  image: docker.io/typesense/typesense
   interval: 1h0m0s
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImagePolicy
 metadata:
-  name: immich-machine-learning
-  namespace: immich
+  name: typesense
 spec:
   imageRepositoryRef:
-    name: immich-machine-learning
+    name: typesense
   policy:
     semver:
-      range: v1.x.x
----
-apiVersion: image.toolkit.fluxcd.io/v1beta1
-kind: ImageRepository
-metadata:
-  name: immich-web
-  namespace: immich
-spec:
-  image: altran1502/immich-web
-  interval: 1h0m0s
----
-apiVersion: image.toolkit.fluxcd.io/v1beta1
-kind: ImagePolicy
-metadata:
-  name: immich-web
-  namespace: immich
-spec:
-  imageRepositoryRef:
-    name: immich-web
-  policy:
-    semver:
-      range: v1.x.x
+      range: 0.24.x
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImageUpdateAutomation
 metadata:
   name: immich
-  namespace: immich
 spec:
   interval: 1m0s
   sourceRef:

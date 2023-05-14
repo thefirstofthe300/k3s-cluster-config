@@ -2,11 +2,10 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: immich-upload
-  namespace: immich
+  name: immich-library
 spec:
   capacity:
-    storage: 20Gi
+    storage: 500Gi
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
@@ -18,11 +17,8 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: immich-upload
+  name: library
   namespace: immich
-  labels:
-    app.kubernetes.io/name: immich-upload
-    app.kubernetes.io/instance: immich
 spec:
   storageClassName: nfs
   accessModes:

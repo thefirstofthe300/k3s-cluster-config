@@ -37,15 +37,12 @@ spec:
       IMMICH_WEB_URL: '{{ printf "http://%s-web:3000" .Release.Name }}'
       IMMICH_SERVER_URL: '{{ printf "http://%s-server:3001" .Release.Name }}'
       IMMICH_MACHINE_LEARNING_URL: '{{ printf "http://%s-machine-learning:3003" .Release.Name }}'
-
     image:
-      tag: v1.53.0 # {"$imagepolicy": "immich:immich:tag"}
-
+      tag: v1.55.1 # {"$imagepolicy": "immich:immich:tag"}
     immich:
       persistence:
         library:
           existingClaim: library
-
     typesense:
       enabled: true
       env:
@@ -57,15 +54,13 @@ spec:
           size: 20Gi
       image:
         repository: docker.io/typesense/typesense
-        tag: 0.24.0 # {"$imagepolicy": "immich:typesense:tag"}
+        tag: 0.24.1 # {"$imagepolicy": "immich:typesense:tag"}
         pullPolicy: IfNotPresent
-
     server:
       enabled: true
       image:
         repository: ghcr.io/immich-app/immich-server
         pullPolicy: IfNotPresent
-
     microservices:
       enabled: true
       env:
@@ -79,7 +74,6 @@ spec:
       image:
         repository: ghcr.io/immich-app/immich-server
         pullPolicy: IfNotPresent
-
     machine-learning:
       enabled: true
       image:
@@ -93,7 +87,6 @@ spec:
           size: 10Gi
           type: emptyDir
           accessMode: ReadWriteMany
-
     web:
       enabled: true
       image:
@@ -102,7 +95,5 @@ spec:
       persistence:
         library:
           enabled: false
-
     proxy:
       enabled: false
-  

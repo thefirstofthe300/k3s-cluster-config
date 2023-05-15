@@ -4,7 +4,7 @@ kind: CronJob
 metadata:
   name: state-compressor
   labels:
-    app.kubernetes.io/name: state-compressor
+    app.kubernetes.io/component: state-compressor
 spec:
   schedule: "0 0 * * 0"
   jobTemplate:
@@ -36,7 +36,7 @@ kind: CronJob
 metadata:
   name: postgres-vacuum
   labels:
-    app.kubernetes.io/name: postgres-vacuum
+    app.kubernetes.io/component: postgres-vacuum
 spec:
   schedule: "0 4 * * 0"
   jobTemplate:

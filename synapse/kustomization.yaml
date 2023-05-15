@@ -11,6 +11,7 @@ resources:
   - storage.yaml
   - updateautomation.yaml
   - bridges
+  - state-compressor
 commonLabels:
   app.kubernetes.io/name: matrix-synapse
   app.kubernetes.io/instance: matrix-synapse

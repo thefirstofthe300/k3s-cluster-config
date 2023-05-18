@@ -11,7 +11,8 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: nfs
   nfs:
-    path: /mnt/media/data/paperless/data
+    path: /mnt/media/data/paperless
+    subDir: data
     server: 192.168.1.100
 ---
 kind: PersistentVolumeClaim
@@ -37,7 +38,8 @@ spec:
   capacity:
     storage: 100Gi
   nfs:
-    path: /mnt/media/data/paperless/media
+    path: /mnt/media/data/paperless
+    subDir: media
     server: 192.168.1.100
 ---
 apiVersion: v1
@@ -63,7 +65,8 @@ spec:
   capacity:
     storage: 5Gi
   nfs:
-    path: /mnt/media/data/paperless/consume
+    path: /mnt/media/data/paperless
+    subDir: consume
     server: 192.168.1.100
 ---
 apiVersion: v1
@@ -89,7 +92,8 @@ spec:
   capacity:
     storage: 100Gi
   nfs:
-    path: /mnt/media/data/paperless/export
+    path: /mnt/media/data/paperless
+    subDir: export
     server: 192.168.1.100
 ---
 apiVersion: v1

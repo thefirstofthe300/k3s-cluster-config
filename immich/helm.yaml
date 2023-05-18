@@ -45,6 +45,8 @@ spec:
           existingClaim: library
     typesense:
       enabled: true
+      podSecurityContext:
+        runAsUser: 10001
       env:
         TYPESENSE_DATA_DIR: /tsdata
       persistence:
@@ -61,10 +63,14 @@ spec:
       image:
         repository: ghcr.io/immich-app/immich-server
         pullPolicy: IfNotPresent
+      podSecurityContext:
+        runAsUser: 10001
     microservices:
       enabled: true
       env:
         REVERSE_GEOCODING_DUMP_DIRECTORY: /geodata-cache
+      podSecurityContext:
+        runAsUser: 10001
       persistence:
         geodata-cache:
           enabled: true
@@ -76,6 +82,8 @@ spec:
         pullPolicy: IfNotPresent
     machine-learning:
       enabled: true
+      podSecurityContext:
+        runAsUser: 10001
       image:
         repository: ghcr.io/immich-app/immich-machine-learning
         pullPolicy: IfNotPresent
@@ -89,6 +97,8 @@ spec:
           accessMode: ReadWriteMany
     web:
       enabled: true
+      podSecurityContext:
+        runAsUser: 10001
       image:
         repository: ghcr.io/immich-app/immich-web
         pullPolicy: IfNotPresent

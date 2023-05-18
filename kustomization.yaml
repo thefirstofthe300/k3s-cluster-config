@@ -11,4 +11,5 @@ resources:
   - sealed-secrets
   - synapse
   - nextcloud
+  - paperless-ngx
   - storageclass.yaml

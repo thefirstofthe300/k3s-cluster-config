@@ -7,7 +7,7 @@ spec:
   capacity:
     storage: 2Ti
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   storageClassName: nfs
   nfs:

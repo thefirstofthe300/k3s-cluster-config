@@ -1,0 +1,105 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: paperless-data
+spec:
+  capacity:
+    storage: 50Gi
+  accessModes:
+    - ReadOnlyMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs
+  nfs:
+    path: /mnt/media/data/paperless/data
+    server: 192.168.1.100
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: data
+spec:
+  accessModes:
+    - "ReadOnlyMany"
+  resources:
+    requests:
+      storage: 50Gi
+  storageClassName: nfs
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: paperless-media
+spec:
+  storageClassName: nfs
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 100Gi
+  nfs:
+    path: /mnt/media/data/paperless/media
+    server: 192.168.1.100
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: media
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Gi
+  storageClassName: nfs
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: paperless-consume
+spec:
+  storageClassName: nfs
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 5Gi
+  nfs:
+    path: /mnt/media/data/paperless/consume
+    server: 192.168.1.100
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: consume
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: nfs
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: paperless-export
+spec:
+  storageClassName: nfs
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 100Gi
+  nfs:
+    path: /mnt/media/data/paperless/export
+    server: 192.168.1.100
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: export
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Gi
+  storageClassName: nfs

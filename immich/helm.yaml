@@ -95,6 +95,19 @@ spec:
           size: 10Gi
           type: emptyDir
           accessMode: ReadWriteMany
+      probes:
+        liveness:
+          spec:
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 1
+            failureThreshold: 6
+        readiness:
+          spec:
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 1
+            failureThreshold: 2
     web:
       enabled: true
       podSecurityContext:

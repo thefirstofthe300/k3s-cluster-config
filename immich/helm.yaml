@@ -98,13 +98,13 @@ spec:
       probes:
         liveness:
           spec:
-            initialDelaySeconds: 120
+            initialDelaySeconds: 180
             periodSeconds: 10
             timeoutSeconds: 1
             failureThreshold: 6
         readiness:
           spec:
-            initialDelaySeconds: 30
+            initialDelaySeconds: 120
             periodSeconds: 10
             timeoutSeconds: 1
             failureThreshold: 2

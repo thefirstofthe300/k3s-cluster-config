@@ -10,7 +10,6 @@ resources:
   - images.yaml
 commonLabels:
   app.kubernetes.io/component: mautrix-signal
-  rollout: 202306231534
 images:
   - name: dock.mau.dev/mautrix/signal
     newTag: v0.4.3 # {"$imagepolicy": "synapse:mautrix-signal:tag"}

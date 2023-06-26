@@ -27,7 +27,7 @@ spec:
               port: http
           readinessProbe:
             httpGet:
-              path: /_matrix/mau/ready
+              path: /_matrix/mau/live
               port: http
           resources: {}
           volumeMounts:

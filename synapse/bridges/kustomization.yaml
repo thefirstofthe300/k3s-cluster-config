@@ -5,5 +5,4 @@ resources:
   - mautrix-signal
   - mautrix-telegram
   - mautrix-discord
-  - mx-puppet-groupme
   - registrations

@@ -23,14 +23,14 @@ spec:
             - name: http
               containerPort: 29328
               protocol: TCP
-          # livenessProbe:
-          #   httpGet:
-          #     path: /_matrix/mau/live
-          #     port: http
-          # readinessProbe:
-          #   httpGet:
-          #     path: /_matrix/mau/ready
-          #     port: http
+          livenessProbe:
+            httpGet:
+              path: /_matrix/mau/live
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /_matrix/mau/live
+              port: http
           resources: {}
           volumeMounts:
             - name: config

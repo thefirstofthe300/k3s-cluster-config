@@ -11,4 +11,4 @@ resources:
   - updateautomation.yaml
 images:
   - name: plexinc/pms-docker
-    newTag: 1.32.5.7349-8f4248874 # {"$imagepolicy": "plex:plex:tag"}
+    newTag: 1.32.7.7621-871adbd44 # {"$imagepolicy": "plex:plex:tag"}
